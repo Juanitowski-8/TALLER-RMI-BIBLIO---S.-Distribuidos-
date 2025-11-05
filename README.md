@@ -28,25 +28,19 @@ pip install grpcio grpcio-tools
 
 Taller_Biblioteca_gRPC/
 
-├── CLIENTE/
-│ ├── biblioteca_client.py # Cliente gRPC
-│ ├── biblioteca_pb2.py # Generado por protoc
-│ ├── biblioteca_pb2_grpc.py # Generado por protoc
-│ └── biblioteca.proto # Definición del servicio gRPC
-
-├── SERVIDOR/
-│ ├── biblioteca_server.py # Servidor gRPC
-│ ├── biblioteca_pb2.py # Generado por protoc
-│ ├── biblioteca_pb2_grpc.py # Generado por protoc
-│ └── biblioteca.proto # Definición del servicio gRPC
-
-├── DATA/
-│ ├── solicitudes_cliente1.txt # Archivo de peticiones de usuario
-│ ├── solicitudes_cliente2.txt
-│ └── solicitudes_cliente3.txt
-
-├── requirements.txt # Dependencias del proyecto
-└── README.md # Documentación del sistema
+Taller-gRPC/
+├─ client/
+│  └─ app.py
+├─ lib/
+│  ├─ library_pb2.py
+│  └─ library_pb2_grpc.py
+├─ proto/
+│  └─ library.proto
+└─ server/
+   ├─ app.py
+   ├─ dao.py
+   └─ db_init.py
+   
 ## 🚀 Cómo Generar los Archivos de gRPC
 
 Después de definir el archivo `biblioteca.proto`, genera los archivos necesarios ejecutando:
