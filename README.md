@@ -1,128 +1,81 @@
 # 📚 Biblioteca gRPC Service
 
-Este proyecto implementa un **servicio remoto para la aplicación Biblioteca** utilizando **gRPC en Python**.  
+Este proyecto implementa un **servicio remoto distribuido** para la aplicación **Biblioteca**, utilizando **gRPC en Python**.  
 Permite a los usuarios:
 
-- Solicitar el préstamo de un libro.  
-- Renovar un préstamo (máximo 2 veces por libro).  
-- Devolver un libro prestado.  
+- 📖 Solicitar el préstamo de un libro  
+- 🔁 Renovar un préstamo (máximo 2 veces por libro)  
+- 📦 Devolver un libro prestado  
 
-Los clientes (Procesos Solicitantes – PS) leen las peticiones desde un archivo `.txt` y las envían automáticamente al servidor gRPC, que gestiona el estado de los libros.
+Los clientes (Procesos Solicitantes – PS) leen las peticiones desde un menú interactivo y las envían automáticamente al servidor gRPC, que gestiona el estado de los libros con una base de datos SQLite local.
 
-## 📝 Requisitos
-
-Asegúrate de tener instalado:
-
-- **Python 3.8+**
-- **grpcio** y **grpcio-tools**
-
-Para instalarlos, abre la consola de comandos y ejecuta:
-
-pip install grpcio grpcio-tools
-
----
-
-### 🧩 **3️⃣ Estructura del Proyecto**
-
-## 📂 Estructura del Proyecto
-
-Taller_Biblioteca_gRPC/
-
+# Estructura del Proyecto
 Taller-gRPC/
-├─ client/
-
-│  └─ app.py
-
-├─ lib/
-
-│  ├─ library_pb2.py
-
-│  └─ library_pb2_grpc.py
-
-├─ proto/
-
-│  └─ library.proto
-
-└─ server/
-
-   ├─ app.py
-   
-   ├─ dao.py
-   
-   └─ db_init.py
-
-   
-## 🚀 Cómo Generar los Archivos de gRPC
-
-Después de definir el archivo `biblioteca.proto`, genera los archivos necesarios ejecutando:
-python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. biblioteca.proto
-
-Esto creará:
-biblioteca_pb2.py
-biblioteca_pb2_grpc.py
-
+├── client/
+│   └── app.py
+├── lib/
+│   ├── library_pb2.py
+│   └── library_pb2_grpc.py
+├── proto/
+│   └── library.proto
+├── server/
+│   ├── app.py
+│   ├── dao.py
+│   └── db_init.py
+└── README.md
 ---
 
-### 🧩 **5️⃣ Ejecución del Proyecto**
-## 🛠️ Cómo Ejecutar el Proyecto
+## 1) Requisitos
 
-### 🖥️ Iniciar el Servidor
+- **Python 3.10+**
+- **Librerías necesarias:**
+- 
+pip install grpcio protobuf
 
-Abre una terminal y ejecuta:
-python server\biblioteca_server.py
+## 2) Inicializar la base de datos (solo una vez)
 
-Verás el mensaje:
+### En la máquina del servidor, ejecutar:
 
-Servidor gRPC Biblioteca escuchando en puerto 50051...
+python -m server.db_init
 
-### 💻 Ejecutar el Cliente
+### Salida esperada:
 
-En otra terminal, ejecuta:
+BD inicializada en: .../server/library.db
 
-python client\biblioteca_client.py data\solicitudes_cliente1.txt Juan
 
-El cliente leerá las peticiones del archivo y enviará las solicitudes al servidor.
+## Este paso crea la base de datos SQLite (library.db) y siembra los datos iniciales de los libros.
 
-## 📄 Ejemplo de archivo solicitudes_cliente1.txt:
-SOLICITAR Libro1
-RENOVAR Libro1
-RENOVAR Libro1
-DEVOLVER Libro1
-SOLICITAR Libro2
+## 3) Levantar el servidor gRPC
 
-## 🧾 Ejemplo de salida:
-[Juan] -> Libro1 prestado a Juan
+### En la máquina del servidor, ejecutar:
 
-[Juan] -> Libro1 renovado (1 veces)
+python -m server.app
 
-[Juan] -> Libro1 devuelto correctamente
+### Salida esperada:
 
+Servidor gRPC en puerto 8080
+
+El servidor escucha en 0.0.0.0:8080, aceptando conexiones desde cualquier IP dentro de la red local o VPN.
 ---
 
-### 🧩 **6️⃣ Pruebas en Red**
-## 🌐 Prueba en Red con Dos o Más Computadoras
+## 4) Probar desde el cliente
 
-Si deseas probarlo en distintas máquinas:
+### En la máquina cliente (Windows o Linux), con Python instalado:
 
-1. Obtén la IP del servidor con `ipconfig` (Windows) o `ifconfig` (Linux/macOS).  
-2. Modifica en el cliente la línea de conexión:
-   channel = grpc.insecure_channel("192.168.X.X:50051")  # Reemplaza con la IP real
+python -m client.app
 
----
+### Menú interactivo del cliente:
 
-### 🧩 **7️⃣ Detalles Técnicos**
-## 🧠 Detalles Técnicos
+1) Consulta ISBN
+2) Préstamo ISBN
+3) Préstamo Título
+4) Devolución ISBN
+0) Salir
 
-- Tres métodos RPC: `SolicitarLibro`, `RenovarLibro`, `DevolverLibro`.  
-- Control de préstamos concurrentes.  
-- Renovaciones limitadas a dos por libro.  
-- Comunicación local (`localhost:50051`) por defecto, adaptable a IP externas.  
-- Compatible con **Python 3.10+**.
+El cliente apunta a la IP del servidor configurada en client/app.py.
+--- 
 
-
----
-
-Proyecto desarrollado para el curso **Sistemas Distribuidos**  
-Autores: Juan Esteban Camargo V y Diego Andres Martinez  
+Taller desarrollado para **Sistemas Distribuidos**  
+Autor: Juan Esteban Camargo V 
 Pontificia Universidad Javeriana – 2025  
-Versión: **1.0 – Implementación gRPC Biblioteca**
+Taller: **– Implementación gRPC Biblioteca**
