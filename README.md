@@ -1,4 +1,4 @@
-# 📚 Biblioteca gRPC Service
+# 📚 TALLER RMI BIBLIOTECA gRPC
 
 Este taller implementa un **servicio remoto distribuido** para la aplicación **Biblioteca**, utilizando **gRPC en Python**.  
 Permite a los usuarios:
