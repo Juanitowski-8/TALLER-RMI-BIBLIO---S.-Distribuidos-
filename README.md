@@ -1,6 +1,6 @@
 # 📚 Biblioteca gRPC Service
 
-Este proyecto implementa un **servicio remoto distribuido** para la aplicación **Biblioteca**, utilizando **gRPC en Python**.  
+Este taller implementa un **servicio remoto distribuido** para la aplicación **Biblioteca**, utilizando **gRPC en Python**.  
 Permite a los usuarios:
 
 - 📖 Solicitar el préstamo de un libro  
