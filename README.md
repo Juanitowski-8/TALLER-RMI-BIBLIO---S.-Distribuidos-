@@ -11,17 +11,29 @@ Los clientes (Procesos Solicitantes – PS) leen las peticiones desde un menú i
 
 # Estructura del Proyecto
 Taller-gRPC/
+
 ├── client/
+
 │   └── app.py
+
 ├── lib/
+
 │   ├── library_pb2.py
+
 │   └── library_pb2_grpc.py
+
 ├── proto/
+
 │   └── library.proto
+
 ├── server/
+
 │   ├── app.py
+
 │   ├── dao.py
+
 │   └── db_init.py
+
 └── README.md
 ---
 
