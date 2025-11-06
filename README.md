@@ -89,5 +89,6 @@ El cliente apunta a la IP del servidor configurada en client/app.py.
 
 Taller desarrollado para **Sistemas Distribuidos**  
 Autor: Juan Esteban Camargo V 
+
 Pontificia Universidad Javeriana – 2025  
 Taller: **– Implementación gRPC Biblioteca**
